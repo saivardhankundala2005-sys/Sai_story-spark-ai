@@ -1,3 +1,4 @@
+import CommunitySpotlightComponent from "./community_spotlight/community_spotlight.component";
 import FeatureComponent from "./feature/feature.component";
 import LatestPostsComponent from "./latest_posts/latest_posts.component";
 import FeatureProfileComponent from "./feature_profile/feature_profile.component";
@@ -26,6 +27,7 @@ const HomeComponent = () => {
           </div>
         </div>
       </div>
+      <CommunitySpotlightComponent /> 
       <ResourceComponent />
       <WriterFeedbackComponent />
       <PricingComponent />
