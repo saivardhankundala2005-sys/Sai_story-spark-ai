@@ -29,6 +29,7 @@ const StoriesComponent = () => {
   const [generateModel] = useGenerateModelMutation();
   const [generateFreeModel] = useGenerateFreeModelMutation();
   const [selectedPrompt, setSelectedPrompt] = useState<string>("");
+const [selectedGenre, setSelectedGenre] = useState<string>("");
   const [textareaValue, setTextareaValue] = useState<string>("");
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [guestRequestCount, setGuestRequestCount] = useState<number>(() =>
@@ -69,9 +70,14 @@ const StoriesComponent = () => {
     setLoading(true);
    
     try {
+      const payload = {
+        prompt: selectedGenre
+          ? `[Genre: ${selectedGenre}] ${data.prompt}`
+          : data.prompt,
+      };
       const res = login
-        ? await generateModel(data).unwrap()
-        : await generateFreeModel(data).unwrap();
+        ? await generateModel(payload).unwrap()
+        : await generateFreeModel(payload).unwrap();
       if (res) {
         toast.success(res.message);
         setStories(res.data as IStories[]);
@@ -171,6 +177,22 @@ const StoriesComponent = () => {
             <div className="bg-blue-500/10 rounded-md p-4 border border-gray-400">
               <div className="relative">
                 <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {["🎭 Drama", "😂 Comedy", "😱 Horror", "💕 Romance", "🚀 Sci-Fi", "🧙 Fantasy", "🔍 Mystery", "🌟 Adventure"].map((genre) => (
+                      <button
+                        key={genre}
+                        type="button"
+                        onClick={() => setSelectedGenre(selectedGenre === genre ? "" : genre)}
+                        className={`px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 ${
+                          selectedGenre === genre
+                            ? "bg-indigo-500 text-white shadow-lg shadow-indigo-500/30"
+                            : "bg-white/10 text-gray-400 hover:bg-white/20 hover:text-gray-200"
+                        }`}
+                      >
+                        {genre}
+                      </button>
+                    ))}
+                  </div>
                   <div className="relative">
                     <textarea
                       {...register("prompt")}
