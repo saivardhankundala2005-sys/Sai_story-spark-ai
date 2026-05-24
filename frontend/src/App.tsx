@@ -1,5 +1,5 @@
 import StoryInspirationWrapper from "./components/StoryInspirationWrapper";
-import { JSX, useEffect, useState } from "react";
+import { JSX } from "react";
 import WritingAssistantComponent from "./components/writing-assistant/writing_assistant.component";
 import {
   BrowserRouter as Router,
@@ -64,20 +64,6 @@ const ProtectedRoute = ({
 };
 
 function App() {
-  const [darkMode] = useState(
-    localStorage.getItem("theme") === "dark",
-  );
-
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  }, [darkMode]);
-
   return (
     <Router>
       <MagicCursorComponent />

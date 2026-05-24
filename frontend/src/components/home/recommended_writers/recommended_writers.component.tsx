@@ -31,7 +31,7 @@ const RecommendedWritersComponent = () => {
 
   return (
     <section className="bg-blue-500/10 rounded-lg shadow-sm p-6">
-      <h3 className="text-lg font-semibold text-gray-300 mb-4">
+      <h3 className="text-lg font-semibold text-slate-900 dark:text-gray-300 mb-4">
         Recommended Writers
       </h3>
 
@@ -49,11 +49,11 @@ const RecommendedWritersComponent = () => {
               />
 
               <div className="ml-3">
-                <p className="text-sm font-medium text-gray-400">
+                <p className="text-sm font-medium text-slate-700 dark:text-gray-400">
                   {writer.name}
                 </p>
 
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-slate-500 dark:text-gray-500">
                   {writer.role}
                 </p>
               </div>
