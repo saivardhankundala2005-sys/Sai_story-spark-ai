@@ -217,9 +217,9 @@ const strengthWidth =
                     message: "Name must be at least 8 characters",
                   },
                   pattern: {
-                    value: /^[A-Za-z0-9._]+$/,
+                    value: /^[A-Za-z0-9\s._]+$/,
                     message:
-                      "Only letters, numbers, underscores, and dots are allowed",
+                      "Only letters, numbers, spaces, underscores, and dots are allowed",
                   },
                 }}
                 error={errors.name}
