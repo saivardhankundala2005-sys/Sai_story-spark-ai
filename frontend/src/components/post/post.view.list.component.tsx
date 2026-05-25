@@ -58,21 +58,6 @@ const ExploreViewListComponent: React.FC<IExploreViewListComponentProps> = ({
                 <p className="text-sm text-slate-400 mb-6 line-clamp-2 flex-1 leading-relaxed">
                   {story.content.slice(0, 100)}...
                 </p>
-<<<<<<< HEAD
-                <div className="flex items-center justify-between text-sm text-slate-500 border-t border-slate-700/50 pt-4 mt-auto">
-                  <div className="flex items-center gap-4">
-                    <button className="flex items-center gap-1.5 hover:text-red-400 transition-colors group/btn" aria-label="Like story">
-                      <i className="far fa-heart group-hover/btn:scale-110 transition-transform" aria-hidden="true"></i>{" "}
-                      <span className="font-medium">{story.likesCount}</span>
-                  </button>
-                    <button className="flex items-center gap-1.5 hover:text-blue-400 transition-colors group/btn" aria-label="Comment on story">
-                      <i className="far fa-comment group-hover/btn:scale-110 transition-transform" aria-hidden="true"></i>{" "}
-                      <span className="font-medium">{story.commentsCount}</span>
-                  </button>
-                  </div>
-                  <button className="hover:text-blue-400 transition-colors" aria-label="Bookmark story">
-                    <i className="far fa-bookmark"></i>
-=======
                 <div className="flex items-center text-sm text-gray-500">
                   <button 
                     onClick={(e) => handleLike(e, story._id as string)}
@@ -88,7 +73,6 @@ const ExploreViewListComponent: React.FC<IExploreViewListComponentProps> = ({
                   <button className="ml-2 !rounded-button flex items-center space-x-1 cursor-pointer hover:text-gray-400 border px-3 py-1">
                     <i className="far fa-comment"></i>
                     <span>{story.commentsCount || 0}</span>
->>>>>>> upstream/main
                   </button>
                   <BookmarkButton storyId={story._id as string} bookmarks={story.bookmarks} className="ml-auto" />
                 </div>

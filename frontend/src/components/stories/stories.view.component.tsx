@@ -137,28 +137,10 @@ const handleExportPDF = () => {
   }
 
   return (
-<<<<<<< HEAD
-    <div className="mt-16 px-4 sm:px-6 lg:px-8 max-w-8xl mx-auto pb-10">
-      <style>
-        {`
-          @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-          .animate-fade-in-up {
-            animation: fadeInUp 0.6s ease-out forwards;
-          }
-        `}
-      </style>
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 animate-fade-in-up">
-        <div className="col-span-1 lg:col-span-8 flex flex-col">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
-=======
     <div className="mt-16 px-4 sm:px-6 md:px-10 pb-10">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div className="col-span-1 lg:col-span-8">
           <div className="flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center">
->>>>>>> upstream/main
             <div className="">
               <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-300 to-blue-400">
                 {selectedStory?.title}
@@ -202,23 +184,6 @@ const handleExportPDF = () => {
               <h3 className="text-xl font-bold text-slate-200 relative z-10">
                 Generated Story
               </h3>
-<<<<<<< HEAD
-              <span className="text-sm text-gray-800 relative z-10">
-                <button
-                  className={`rounded-lg px-5 py-2 font-semibold flex items-center space-x-2 cursor-pointer bg-blue-600 text-white transition-all duration-200 ${
-                    loading
-                      ? "opacity-50 cursor-not-allowed"
-                      : "hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-500/25 active:scale-95"
-                  }`}
-                  onClick={handelPublishStory}
-                  disabled={loading}
-                >
-                  {loading ? "Publishing..." : "Publish"}
-                </button>
-              </span>
-            </div>
-            <div className="prose prose-invert max-w-none text-slate-300 leading-relaxed tracking-wide relative z-10">
-=======
               <div className="flex items-center gap-2">
   {selectedStory && (
     <>
@@ -258,7 +223,6 @@ const handleExportPDF = () => {
   id="story-content"
   className="prose max-w-none text-gray-400"
 >
->>>>>>> upstream/main
               {selectedStory ? (
                 <p className="break-words">{selectedStory.content}</p>
               ) : (
@@ -312,11 +276,7 @@ const handleExportPDF = () => {
                   <img
                     src={selectedStory.imageURL}
                     alt="card-image"
-<<<<<<< HEAD
-                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
-=======
                     className="w-full h-32 sm:h-40 object-cover rounded-b-md"
->>>>>>> upstream/main
                   />
                 </div>
                 <div className="px-3 py-1">

@@ -83,11 +83,7 @@ const ExploreComponent = () => {
               <input
                 type="text"
                 placeholder="Search title, tag..."
-<<<<<<< HEAD
-              className="w-full pl-12 pr-4 py-3 text-base text-slate-200 bg-slate-800/60 backdrop-blur-md border border-slate-700/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all shadow-inner placeholder:text-slate-500"
-=======
                 className="w-full pl-12 pr-4 py-2 text-base text-gray-200 placeholder-gray-400 bg-blue-500/10 border outline-1 -outline-offset-1 outline-indigo-600 rounded-md focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
->>>>>>> upstream/main
                 value={searchTerm}
                 onChange={(e) => {
                   setSearchTerm(e.target.value);
@@ -208,11 +204,7 @@ const ExploreComponent = () => {
                   </h2>
                 </div>
                 <div className="flex items-center space-x-4">
-<<<<<<< HEAD
-              <label className="text-sm font-medium text-slate-400">Show</label>
-=======
                   <label className="text-sm text-gray-400">Show</label>
->>>>>>> upstream/main
                   <select
                 className="!rounded-button border border-slate-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 bg-slate-800 text-slate-300 py-1.5 px-3 outline-none transition-all appearance-none cursor-pointer"
                     value={size}
@@ -226,11 +218,7 @@ const ExploreComponent = () => {
                     <option value={50}>50</option>
                     <option value={100}>100</option>
                   </select>
-<<<<<<< HEAD
-              <span className="text-sm font-medium text-slate-400">entries</span>
-=======
                   <span className="text-sm text-gray-400">entries</span>
->>>>>>> upstream/main
                 </div>
               </div>
               {featuredPost && <ExploreFeatureComponent />}
@@ -269,17 +257,6 @@ const ExploreComponent = () => {
             </div>
 
             {!featuredPost && data?.meta && (
-<<<<<<< HEAD
-          <div className="sticky bottom-0 bg-slate-900/80 backdrop-blur-xl border-t border-slate-800 z-20 mt-8 shadow-[0_-10px_40px_-10px_rgba(0,0,0,0.5)]">
-            <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-                  <PaginationComponent
-                    current={page}
-                    pageSize={size}
-                    total={data.meta.total}
-                    onChange={onPaginationChange}
-                  />
-                </div>
-=======
               <div className="sticky bottom-0 bg-gray-900/90 backdrop-blur-md border-t border-gray-800 z-10 mt-auto py-4">
                 <PaginationComponent
                   current={page}
@@ -287,7 +264,6 @@ const ExploreComponent = () => {
                   total={data.meta.total}
                   onChange={onPaginationChange}
                 />
->>>>>>> upstream/main
               </div>
             )}
           </div>

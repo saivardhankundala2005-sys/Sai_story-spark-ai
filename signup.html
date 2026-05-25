@@ -94,10 +94,10 @@
 </head>
 <body class="bg-background text-on-surface font-body-md min-h-screen selection:bg-primary/30">
 <div class="min-h-screen flex items-center justify-center p-4 md:p-6">
-    <main class="auth-container flex flex-col md:flex-row overflow-hidden rounded-2xl md:rounded-3xl">
+    <main class="auth-container flex flex-col md:flex-row max-w-6xl mx-auto overflow-hidden rounded-2xl md:rounded-3xl"></main>
         
         <!-- Left Pane: Concept Showcase -->
-        <section class="relative w-full md:w-1/2 flex items-center justify-center p-6 md:p-8 overflow-hidden bg-surface-container-lowest min-h-[200px] md:min-h-[600px]">
+        <section class="relative w-full md:w-1/2 flex items-center justify-center p-6 md:p-8 overflow-hidden bg-surface-container-lowest min-h-[200px] md:min-h-[600px]"> </section>
             <!-- Animated Particle Canvas -->
             <canvas id="particle-canvas"></canvas>
             <div class="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-tertiary/5 z-0"></div>
@@ -198,7 +198,7 @@
                         <input class="w-4 h-4 rounded border-white/10 bg-surface-container-high text-primary focus:ring-primary ring-offset-surface" id="remember" type="checkbox"/>
                         <label class="text-[13px] text-on-surface-variant" for="remember">Remember me for 30 days</label>
                     </div>
-                    <button class="w-full ds-btn-submit" id="submit-btn" type="submit">
+                    <button class="w-full ds-btn-submit hover:scale-[1.02] transition-all duration-300 shadow-lg"
                         Create Account
                     </button>
                 </form>

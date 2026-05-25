@@ -77,28 +77,6 @@ const NavListComponent: React.FC = () => {
         <div className="flex items-center gap-3">
           <div className="hidden md:flex items-center gap-3">
             <button
-<<<<<<< HEAD
-              type="button"
-              className="!rounded-button p-2 text-gray-400 hover:text-gray-500"
-              aria-label="Search"
-            >
-              <i className="fas fa-search" aria-hidden="true"></i>
-            </button>
-            <div className="ml-3 relative">
-              <div className="relative inline-flex">
-                <button
-                  type="button"
-                  className="!rounded-button p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none"
-                  onClick={() => setShowNotification(true)}
-                  aria-label="Notifications"
-                >
-                  <i className="fa-solid fa-bell" aria-hidden="true"></i>
-                </button>
-                <span className="absolute top-0.5 right-0.5 grid min-h-[18px] min-w-[18px] translate-x-2/4 -translate-y-2/4 place-items-center rounded-full bg-red-700 text-xs text-gray-400">
-                  {newNotify}
-                </span>
-              </div>
-=======
             type="button"
             aria-label="Open Help Center"
             onClick={() => navigate("/help-center")}
@@ -120,7 +98,6 @@ const NavListComponent: React.FC = () => {
                   </span>
                 )}
               </button>
->>>>>>> upstream/main
             </div>
             {isLogin ? (
               <button onClick={handelLogout} className="text-gray-400 px-4 py-2 font-medium cursor-pointer rounded-md hover:bg-white/5 hover:text-white transition">
