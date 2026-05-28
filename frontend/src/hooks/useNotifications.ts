@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { getUserInfo, isLoggedIn } from "../services/auth.service";
-import { socketIo } from "../socket/socket.oi";
+import { useSocket } from "../socket/SocketProvider";
 import {
   useGetNotificationsQuery,
   useMarkNotificationReadMutation,
@@ -11,6 +11,7 @@ export const useNotifications = () => {
   const [isOpen, setIsOpen] = useState(false);
   const isAuthed = isLoggedIn();
   const user = getUserInfo();
+  const socket = useSocket();
 
   const { data, isFetching, refetch } = useGetNotificationsQuery(undefined, {
     skip: !isAuthed,
@@ -19,23 +20,20 @@ export const useNotifications = () => {
   const [liveNotifications, setLiveNotifications] = useState<NotificationItem[]>([]);
 
   useEffect(() => {
-    if (!isAuthed || !user?.userId) {
+    if (!isAuthed || !user?.userId || !socket) {
       return;
     }
-
-    socketIo.auth = { token: localStorage.getItem("accessToken") || "" };
-    socketIo.connect();
 
     const handleNotification = (notification: NotificationItem) => {
       setLiveNotifications((prev) => [notification, ...prev]);
     };
 
-    socketIo.on("notification:new", handleNotification);
+    socket.on("notification:new", handleNotification);
     return () => {
-      socketIo.off("notification:new", handleNotification);
-      socketIo.disconnect();
+      // Only remove this hook's listener — never disconnect the shared socket
+      socket.off("notification:new", handleNotification);
     };
-  }, [isAuthed, user?.userId]);
+  }, [isAuthed, user?.userId, socket]);
 
   const notifications = useMemo(() => {
     const combined = [...(liveNotifications || []), ...(data || [])];
@@ -73,4 +71,4 @@ export const useNotifications = () => {
     close,
     markAsRead,
   };
-};
+};
