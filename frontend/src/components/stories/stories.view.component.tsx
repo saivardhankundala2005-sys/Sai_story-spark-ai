@@ -1107,6 +1107,8 @@ if (isLoading) {
           </div>
           <div className="bg-slate-800/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl shadow-2xl overflow-hidden group">
             <div className="relative flex flex-col rounded-lg">
+              console.log("selectedStory", selectedStory);
+              console.log("imageURL", selectedStory?.imageURL);
               <div className="relative m-3 overflow-hidden text-white rounded-xl">
                 <ImageFallback
                   src={selectedStory.imageURL}
