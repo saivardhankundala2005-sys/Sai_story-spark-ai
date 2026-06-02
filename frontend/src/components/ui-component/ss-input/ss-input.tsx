@@ -44,11 +44,11 @@ const SSInput = <T extends FieldValues>({
 
 
   return (
-    <div className="w-full min-w-0">
+    <div className="w-full min-w-0" style={{ width: "100%", boxSizing: "border-box", maxWidth: "100%" }}>
       <label htmlFor={name} className="block text-sm font-medium text-gray-600 dark:text-gray-400">
         {label}
       </label>
-      <div className="relative mt-2 w-full min-w-0">
+      <div className="relative mt-2 w-full min-w-0" style={{ width: "100%", boxSizing: "border-box", maxWidth: "100%" }}>
         {icon && (
           <span className="absolute inset-y-0 left-0 pl-2 sm:pl-3 flex items-center text-gray-500 pointer-events-none">
             <i className={icon}></i>
@@ -63,6 +63,7 @@ const SSInput = <T extends FieldValues>({
       ? "border-2 border-red-500"
       : "focus:ring-2 focus:ring-indigo-500/20 focus:outline-none"
   }`}
+  style={{ width: "100%", boxSizing: "border-box", maxWidth: "100%" }}
   placeholder={placeholder}
   autoComplete={autoComplete}
   autoFocus={autoFocus}
