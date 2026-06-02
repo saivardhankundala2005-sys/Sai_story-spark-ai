@@ -15,6 +15,18 @@ import { postSearchFields } from "./post.constant";
 import { SortOrder, Types } from "mongoose";
 import { GamificationService } from "../gamification/gamification.service";
 
+const escapeRegex = (text: string): string => {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
+const MAX_SEARCH_TERM_LENGTH = 100;
+
+// Assuming your project has AI and Quota modules structured like this:
+// import { QuotaService } from "../quota/quota.service";
+// import { AIModelService } from "../ai_model/ai_model.service";
+
+const MAX_SEARCH_TERM_LENGTH = 100;
+const escapeRegex = (str: string) =>
+  str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 interface ICursorPayload {
   value: string;
   id: string;

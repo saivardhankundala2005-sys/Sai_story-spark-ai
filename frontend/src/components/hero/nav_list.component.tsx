@@ -1,3 +1,9 @@
+import React, { useState, useRef } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { isLoggedIn, removeUserInfo } from "../../services/auth.service";
 import React, { useState, useEffect, useRef } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/logoNew.png";
@@ -315,4 +321,4 @@ const HeaderComponent: React.FC = () => {
   );
 };
 
-export default HeaderComponent;
+export default NavList;

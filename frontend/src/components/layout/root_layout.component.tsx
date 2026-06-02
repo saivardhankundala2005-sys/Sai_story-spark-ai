@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import NavListComponent from "../hero/nav_list.component";
 import CookieConsentBanner from "../cookie-consent/cookie-consent.component";
 import FooterComponent from "../footer/footer.component";
-import ChatComponent from "../chat/Chat";
+import { FloatingChatWidget } from "../ui-component/floating-chat/floating_chat.component";
 
 interface RootLayoutProps {
   children: ReactNode;
@@ -16,7 +16,6 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
 
   return (
     <div className={`flex flex-col min-h-screen bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-100 ${!isAuthPage ? "pb-20 lg:pb-0" : ""}`}>
-
       {!hideHeader && <NavListComponent />}
 
       <CookieConsentBanner />
@@ -34,7 +33,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
         </AnimatePresence>
       </div>
       {!hideFooter && <FooterComponent />}
-      <ChatComponent />
+      {!isAuthPage && <FloatingChatWidget />}
     </div>
   );
 };
