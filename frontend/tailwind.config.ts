@@ -1,13 +1,4 @@
-import type { Config } from "tailwindcss";
-import forms from "@tailwindcss/forms";
-import containerQueries from "@tailwindcss/container-queries";
 
-const config: Config = {
-
-import forms from "@tailwindcss/forms";
-import containerQueries from "@tailwindcss/container-queries";
-
-/** @type {import('tailwindcss').Config} */
 export default {
   content: [
     "./index.html",
@@ -125,13 +116,5 @@ export default {
     },
   },
 
-  plugins: [forms, containerQueries],
+  plugins: [],
 };
-
-export default config;
-   plugins: [
-    forms,
-    containerQueries,
-  ],
- 
-}
