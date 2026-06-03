@@ -10,7 +10,9 @@ const ScrollToTopButton = () => {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   const scrollToTop = () => {
@@ -27,6 +29,10 @@ const ScrollToTopButton = () => {
         right: "2rem",
         width: "48px",
         height: "48px",
+        bottom: "6rem",
+        right: "1.5rem",
+        width: "56px",
+        height: "56px",
         borderRadius: "50%",
         border: "none",
         cursor: "pointer",
