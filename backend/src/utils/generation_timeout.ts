@@ -35,12 +35,12 @@ export const raceGenerationWithTimeout = async <T>(
       })
       .catch((error) => {
         clearTimeout(timeoutId);
-        controller.abort();
         if (controller.signal.aborted) {
           reject(new GenerationTimeoutError());
-          return;
+        } else {
+          controller.abort();
+          reject(error);
         }
-        reject(error);
       });
   });
 };
