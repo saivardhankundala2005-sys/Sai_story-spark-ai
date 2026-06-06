@@ -1,28 +1,36 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { connectSocket } from "../../socket/socket.oi";
+import { connectSocket, getSocketIo } from "../../socket/socket.oi";
 import { getUserInfo, isLoggedIn } from "../../services/auth.service";
-import { io } from "socket.io-client";
+
+interface CreateRoomResponse {
+  roomId?: string;
+  message?: string;
+}
 
 export default function CollabHome() {
   const navigate = useNavigate();
   const [joinRoomId, setJoinRoomId] = useState("");
   const [error, setError] = useState("");
   const [isCreating, setIsCreating] = useState(false);
+
   const user = getUserInfo();
 
   const createRoom = () => {
-    if (!isLoggedIn()) {
+    if (!isLoggedIn() || !user) {
       navigate("/login");
       return;
     }
 
-    const user = getUserInfo();
-
     try {
       setIsCreating(true);
-      connectSocket();
-      const socket = getSocketIo();
+      setError("");
+
+      let socket = getSocketIo();
+      if (!socket) {
+        socket = connectSocket();
+      }
+
       if (!socket) {
         setError(
           "Socket.IO connection failed. Please check VITE_SOCKET_URL in frontend/.env"
@@ -31,18 +39,16 @@ export default function CollabHome() {
         return;
       }
 
-      const collabSocket = socket.io.of("/collab");
-
-      collabSocket.emit(
+      socket.emit(
         "collab:create_room",
-        { userId: user?.userId, username: user?.name },
-        (response: unknown) => {
-          if (response && (response as { roomId: string }).roomId) {
-            navigate(`/collab/${(response as { roomId: string }).roomId}`);
+        { userId: user.userId, username: user.name },
+        (response: CreateRoomResponse) => {
+          if (response.roomId) {
+            navigate(`/collab/${response.roomId}`);
           } else {
-            setError("Failed to create room. Please try again.");
+            setError(response.message || "Failed to create room");
+            setIsCreating(false);
           }
-          setIsCreating(false);
         }
       );
     } catch (err) {
@@ -57,6 +63,7 @@ export default function CollabHome() {
       setError("Please enter a Room ID");
       return;
     }
+
     navigate(`/collab/${joinRoomId.trim()}`);
   };
 
@@ -71,8 +78,10 @@ export default function CollabHome() {
             onClick={() => navigate("/")}
             className="group inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition-colors bg-transparent border-none outline-none cursor-pointer"
           >
-            <i className="fa-solid fa-arrow-left text-xs transform group-hover:-translate-x-0.5 transition-transform" />
-            Back to Home
+            <i className="fas fa-arrow-left text-sm transform group-hover:-translate-x-1 transition-transform"></i>
+            <span className="text-sm font-semibold tracking-wide">
+              Back to Home
+            </span>
           </button>
         </div>
 
