@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { motion } from "framer-motion";
+import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
+import { WandSparkles, BookOpen, UsersRound } from "lucide-react";
+import toast, { Toaster } from "react-hot-toast";
+
 import SSInput from "../ui-component/ss-input/ss-input";
 import SSButton from "../ui-component/ss-button/ss-button";
-import { useState } from "react";
-import { motion } from "framer-motion";
 import {
   useLoginUserMutation,
   useGoogleLoginMutation,
@@ -13,10 +15,7 @@ import {
 import { storeUserInfo, getUserInfo } from "../../services/auth.service";
 import { USER_ROLE } from "../../constants/role";
 import RedirectComponent from "../redirect.component";
-import toast, { Toaster } from "react-hot-toast";
-import { Link } from "react-router-dom";
-import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
-import { WandSparkles, BookOpen, UsersRound } from "lucide-react";
+
 
 type Inputs = {
   email: string;
