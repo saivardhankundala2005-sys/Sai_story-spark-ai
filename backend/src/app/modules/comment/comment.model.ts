@@ -11,13 +11,23 @@ const CommentSchema: Schema<IComment> = new Schema<IComment, CommentModel>(
       ref: "Comment",
       default: null,
     },
-    likes: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "User",
-        default: [],
-      },
-    ],
+   likes: [
+  {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    default: [],
+  },
+],
+
+isDeleted: {
+  type: Boolean,
+  default: false,
+},
+
+deletedAt: {
+  type: Date,
+  default: null,
+},
   },
   { timestamps: true }
 );

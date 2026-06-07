@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import * as newsletterService from "./newsletter.service";
+import { status as httpStatus } from "http-status";
 
 // Subscribe user to newsletter
 export const subscribe = async (req: Request, res: Response) => {
@@ -36,6 +37,7 @@ export const subscribe = async (req: Request, res: Response) => {
     });
   }
 };
+
 // Verify newsletter subscription token
 export const verify = async (req: Request, res: Response) => {
   try {
@@ -54,8 +56,26 @@ export const verify = async (req: Request, res: Response) => {
 // Unsubscribe via token from the email link. Safe, no email enumeration.
 export const unsubscribeByToken = async (req: Request, res: Response) => {
   try {
-    const token = req.params.token as string;
+    const token = (req.params.token as string).trim();
+
     const result = await newsletterService.unsubscribeByToken(token);
+
+    res.status(httpStatus.OK).json({
+      success: true,
+      message: "Successfully unsubscribed",
+      data: result,
+    });
+  } catch (error) {
+    res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: "Failed to unsubscribe",
+      error,
+    });
+    const { token } = req.params;
+    const safeToken = Array.isArray(token) ? token[0] : token;
+
+    const result = await newsletterService.unsubscribeByToken(safeToken as string);
+    
     res.status(200).json(result);
   } catch (err: any) {
     res.status(400).json({ message: err.message });

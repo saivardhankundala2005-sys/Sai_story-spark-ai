@@ -97,8 +97,8 @@ const ReviewForm = () => {
   };
 
   return (
-    <div className="mx-auto max-w-2xl">
-      <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#0f172a]/90 to-[#111827]/90 p-6 sm:p-8 md:p-10 shadow-2xl shadow-blue-500/10 backdrop-blur-md">
+    <div className="mx-auto w-full max-w-2xl min-w-0 px-3 sm:px-0">
+      <div className="relative w-full min-w-0 overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#0f172a]/90 to-[#111827]/90 p-4 pb-16 shadow-2xl shadow-blue-500/10 backdrop-blur-md sm:rounded-3xl sm:p-8 md:p-10">
         {/* Background Glow */}
         <div className="pointer-events-none absolute -right-20 -top-20 h-60 w-60 rounded-full bg-blue-500/10 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-20 -left-20 h-60 w-60 rounded-full bg-indigo-500/10 blur-3xl" />
@@ -143,7 +143,7 @@ const ReviewForm = () => {
             </div>
           )}
 
-          <div className="space-y-6">
+          <div className="w-full min-w-0 space-y-6">
             {/* Name */}
             <div>
               <label
@@ -162,7 +162,7 @@ const ReviewForm = () => {
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Your full name"
                 aria-invalid={!!errors.name}
-                className="w-full max-w-lg rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-gray-500 transition-all duration-200 focus:border-blue-500/60 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                className="w-full min-w-0 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-gray-500 transition-all duration-200 focus:border-blue-500/60 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
               />
 
               {errors.name && (
@@ -191,7 +191,7 @@ const ReviewForm = () => {
                 onChange={(e) => setRole(e.target.value)}
                 placeholder="e.g. Fantasy Writer, Student, Blogger"
                 aria-invalid={!!errors.role}
-                className="w-full max-w-lg rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-gray-500 transition-all duration-200 focus:border-blue-500/60 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                className="w-full min-w-0 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-gray-500 transition-all duration-200 focus:border-blue-500/60 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
               />
 
               {errors.role && (
@@ -221,10 +221,10 @@ const ReviewForm = () => {
                 onChange={(e) => setFeedback(e.target.value)}
                 placeholder="Tell us about your experience with StorySparkAI..."
                 aria-invalid={!!errors.feedback}
-                className="w-full max-w-lg resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-gray-500 transition-all duration-200 focus:border-blue-500/60 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                className="w-full min-w-0 resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-gray-500 transition-all duration-200 focus:border-blue-500/60 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
               />
 
-              <div className="mt-1 flex items-center justify-between max-w-lg">
+              <div className="mt-1 flex w-full min-w-0 items-center justify-between gap-3">
                 {errors.feedback ? (
                   <p className="flex items-center gap-1 text-xs text-red-400">
                     <span>⚠</span>
@@ -266,12 +266,12 @@ const ReviewForm = () => {
               )}
             </div>
 
-            <div className="flex justify-center mt-6">
+            <div className="mt-6 flex justify-center">
               <button
                 type="button"
                 onClick={handleSubmit}
                 disabled={isLoading}
-                className="w-auto rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-3 font-semibold text-white transition-all duration-200 hover:scale-[1.02] hover:from-blue-500 hover:to-indigo-500 hover:shadow-xl hover:shadow-blue-500/25 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-5 py-3 font-semibold text-white transition-all duration-200 hover:scale-[1.02] hover:from-blue-500 hover:to-indigo-500 hover:shadow-xl hover:shadow-blue-500/25 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-blue-500/50 sm:w-auto sm:px-8"
               >
               {isLoading ? (
                 <span className="flex items-center justify-center gap-2">
@@ -300,87 +300,12 @@ const ReviewForm = () => {
                 "Share Review ✨"
               )}
             </button>
-          </div>
         </div>
-<<<<<<< HEAD
-=======
-      )}
-
-      {errors.submit && (
-        <div aria-live="polite" className="mb-5 p-4 border border-red-500/20 bg-red-500/[0.02] text-red-600 dark:text-red-400 rounded-xl text-xs sm:text-sm font-semibold tracking-tight">
-          {errors.submit}
-        </div>
-      )}
-
-      <div className="space-y-4 relative z-10 w-full box-border">
-        <div>
-          <label htmlFor="name" className="block text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-400 mb-1.5 uppercase tracking-wider select-none">
-            Name <span className="text-red-500">*</span>
-          </label>
-          <input
-            id="name"
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            aria-invalid={!!errors.name}
-            aria-describedby={errors.name ? "name-error" : undefined}
-            className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-slate-800 placeholder-slate-400 dark:border-white/10 dark:bg-slate-900/50 dark:text-slate-100 dark:placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/40 transition-all duration-150 box-border"
-          />
-          {errors.name && <p id="name-error" className="text-red-500 text-xs font-semibold mt-1 tracking-tight">{errors.name}</p>}
-        </div>
-
-        <div>
-          <label htmlFor="role" className="block text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-400 mb-1.5 uppercase tracking-wider select-none">
-            Role <span className="text-red-500">*</span>
-          </label>
-          <input
-            id="role"
-            type="text"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-            aria-invalid={!!errors.role}
-            aria-describedby={errors.role ? "role-error" : undefined}
-            className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-slate-800 placeholder-slate-400 dark:border-white/10 dark:bg-slate-900/50 dark:text-slate-100 dark:placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/40 transition-all duration-150 box-border"
-          />
-          {errors.role && <p id="role-error" className="text-red-500 text-xs font-semibold mt-1 tracking-tight">{errors.role}</p>}
-        </div>
-
-        <div>
-          <label htmlFor="feedback" className="block text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-400 mb-1.5 uppercase tracking-wider select-none">
-            Review <span className="text-red-500">*</span>
-          </label>
-          <textarea
-            id="feedback"
-            value={feedback}
-            onChange={(e) => setFeedback(e.target.value)}
-            rows={4}
-            maxLength={500}
-            aria-invalid={!!errors.feedback}
-            aria-describedby={errors.feedback ? "feedback-error" : undefined}
-            className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-slate-800 placeholder-slate-400 dark:border-white/10 dark:bg-slate-900/50 dark:text-slate-100 dark:placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/40 transition-all duration-150 box-border resize-none leading-relaxed"
-          />
-          <p className="text-[10px] text-slate-400 dark:text-slate-500 font-bold font-mono text-right mt-1 select-none">{feedback.length}/500</p>
-          {errors.feedback && <p id="feedback-error" className="text-red-500 text-xs font-semibold mt-0.5 tracking-tight">{errors.feedback}</p>}
-        </div>
-
-        <div>
-          <label className="block text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-400 mb-1.5 uppercase tracking-wider select-none">
-            Rating <span className="text-red-500">*</span>
-          </label>
-          <StarRating rating={rating} setRating={setRating} />
-          {errors.rating && <p className="text-red-500 text-xs font-semibold mt-1 tracking-tight">{errors.rating}</p>}
-        </div>
-
-        <button
-          type="button"
-          onClick={handleSubmit}
-          disabled={isLoading}
-          className="w-full py-2.5 px-4 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-semibold rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-slate-900 mt-2"
-        >
-          {isLoading ? "Submitting..." : "Submit Review"}
-        </button>
->>>>>>> 12f5312 (#1358 fix: improve ReviewForm spacing and responsiveness)
       </div>
+    </div>
+  </div>
+</div>
+  );
     </div>
   );
 };
