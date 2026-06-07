@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
+﻿import { useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { isLoggedIn, removeUserInfo } from "../../services/auth.service";
@@ -66,6 +68,11 @@ const NavListComponent = () => {
           onClick={(e) => {
             if (window.location.pathname === "/") {
               e.preventDefault();
+
+              window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+              });
               window.scrollTo({ top: 0, behavior: "smooth" });
             }
           }}
@@ -73,6 +80,7 @@ const NavListComponent = () => {
           Spark-Story-AI
         </Link>
 
+        <nav className="hidden items-center gap-2 lg:flex">
         <nav className="hidden lg:flex items-center gap-2">
           <NavLink to="/" end className={linkClass}>
             Home
@@ -212,6 +220,9 @@ const NavListComponent = () => {
           )}
 
           <button
+            className="rounded-md px-2 py-1 text-slate-700 lg:hidden dark:text-slate-200"
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-label="Toggle Navigation Menu"
             type="button"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             onClick={() => setMenuOpen((prev) => !prev)}
@@ -332,6 +343,11 @@ const NavListComponent = () => {
             variants={mobileMenuVariants}
             className="overflow-hidden border-b border-slate-200/70 bg-white/80 shadow-xl shadow-slate-900/5 backdrop-blur-2xl dark:border-white/10 dark:bg-slate-950/85 lg:hidden"
           >
+            <div className="space-y-1 border-t border-slate-200/70 px-4 py-3 dark:border-white/10">
+              <NavLink to="/" end className={linkClass} onClick={() => setMenuOpen(false)}>Home</NavLink>
+              <NavLink to="/explore" className={linkClass} onClick={() => setMenuOpen(false)}>Explore</NavLink>
+              <NavLink to="/story-inspiration" className={linkClass} onClick={() => setMenuOpen(false)}>Stories</NavLink>
+              <NavLink to="/community" className={linkClass} onClick={() => setMenuOpen(false)}>Community</NavLink>
             <div className="mx-auto max-w-7xl px-4 pb-5 pt-2 sm:px-6">
               <div className="space-y-2 rounded-2xl border border-slate-200/70 bg-white/55 p-2 shadow-sm shadow-slate-900/5 dark:border-white/10 dark:bg-white/[0.04]">
                 {navItems.map((item, index) => (
