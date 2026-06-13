@@ -33,6 +33,7 @@ export function getAnthropicClient(): Anthropic {
 
 export const GEMINI_MODEL = "gemini-2.5-flash";
 export const CLAUDE_MODEL = "claude-3-5-sonnet-20241022";
+export const OPENAI_MODEL = "gpt-4";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -48,7 +49,7 @@ async function generateWithOpenAI(prompt: string): Promise<string> {
   const client = getOpenAIClient();
   const response = await client.chat.completions.create(
     {
-      model: "gpt-3.5-turbo",
+      model: OPENAI_MODEL,
       messages: [{ role: "user", content: prompt }],
       max_tokens: 1000,
     },
@@ -119,6 +120,7 @@ export async function generateStory(prompt: string, provider?: string): Promise<
   const securePrompt = validateAndFormatPrompt(prompt);
 
   const chosenProvider = provider?.toLowerCase();
+  let didFallbackToGemini = false;
 
   if (chosenProvider === "anthropic" || chosenProvider === "claude") {
     // ── Try Anthropic first ──────────────────────────────────────────────────
@@ -138,6 +140,7 @@ export async function generateStory(prompt: string, provider?: string): Promise<
           "Anthropic request failed with a non-retryable error. Please check your API key."
         );
       }
+      didFallbackToGemini = true;
       console.log("[AI] Falling back to Gemini...");
     }
   } else if (chosenProvider === "openai" || !chosenProvider) {
@@ -162,17 +165,23 @@ export async function generateStory(prompt: string, provider?: string): Promise<
         );
       }
 
+      didFallbackToGemini = true;
       console.log("[AI] Falling back to Gemini...");
     }
+  } else if (chosenProvider === "gemini") {
+    // Skip OpenAI/Anthropic blocks
+  } else {
+    // Unknown provider
+    throw new Error(`Unsupported AI provider: ${provider}`);
   }
 
   // ── Try Gemini as fallback / direct ───────────────────────────────────────
   try {
     let story = await generateWithGemini(securePrompt);
     story = validateOutput(story); // SECURITY LAYER: Validate output
-    console.log(`[AI] Story generated successfully via Gemini (${chosenProvider ? "direct" : "fallback"})`);
+    console.log(`[AI] Story generated successfully via Gemini (${didFallbackToGemini ? "fallback" : "direct"})`);
 
-    return { story, provider: "gemini", fallbackUsed: chosenProvider !== "gemini" && chosenProvider !== undefined };
+    return { story, provider: "gemini", fallbackUsed: didFallbackToGemini };
 
   } catch (geminiError) {
     console.error(
@@ -182,7 +191,7 @@ export async function generateStory(prompt: string, provider?: string): Promise<
 
     // All failed — throw a clean user-facing error
     throw new Error(
-      "Story generation failed. Both AI providers are currently unavailable. Please try again later."
+      "Story generation failed. All AI providers are currently unavailable. Please try again later."
     );
   }
 }

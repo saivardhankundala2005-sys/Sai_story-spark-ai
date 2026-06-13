@@ -1,5 +1,5 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { GEMINI_MODEL, CLAUDE_MODEL, getOpenAIClient, getAnthropicClient } from "../../../services/ai.service";
+import { GEMINI_MODEL, CLAUDE_MODEL, OPENAI_MODEL, getOpenAIClient, getAnthropicClient } from "../../../services/ai.service";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
 
@@ -45,7 +45,7 @@ Prompt: ${prompt}`;
 
   const response = await client.chat.completions.create(
     {
-      model: "gpt-3.5-turbo",
+      model: OPENAI_MODEL,
       messages: [{ role: "user", content: metaPrompt }],
       max_tokens: 1000,
     },

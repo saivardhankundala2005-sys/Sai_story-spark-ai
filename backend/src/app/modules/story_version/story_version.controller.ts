@@ -139,7 +139,8 @@ const enhancePrompt = catchAsync(async (req: Request, res: Response) => {
     );
   }
 
-  const provider = req.headers["x-model-provider"] as string | undefined;
+  const rawProvider = req.headers?.["x-model-provider"];
+  const provider = Array.isArray(rawProvider) ? rawProvider[0] : rawProvider;
   const enhancedPrompt = await StoryVersionService.enhancePrompt(prompt.trim(), provider);
 
   sendResponse(res, {

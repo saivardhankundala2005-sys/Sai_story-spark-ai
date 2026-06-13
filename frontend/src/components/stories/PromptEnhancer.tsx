@@ -54,6 +54,8 @@ const PromptEnhancer = ({ prompt, onPromptChange }: PromptEnhancerProps) => {
     <div className="flex items-center gap-3 mt-2 flex-wrap">
       {/* 🤖 Model Selector */}
       <select
+        id="model-selector"
+        aria-label="Select AI writing model"
         value={selectedModel}
         onChange={(e) => setSelectedModel(e.target.value)}
         disabled={isEnhancing}
@@ -61,7 +63,7 @@ const PromptEnhancer = ({ prompt, onPromptChange }: PromptEnhancerProps) => {
       >
         <option value="gemini" className="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200">Google Gemini (Default)</option>
         <option value="openai" className="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200">OpenAI GPT-4</option>
-        <option value="claude" className="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200">Anthropic Claude 3.5</option>
+        <option value="anthropic" className="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200">Anthropic Claude 3.5</option>
       </select>
 
       {/* ✨ Enhance button */}
