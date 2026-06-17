@@ -31,6 +31,8 @@ function getColorForUser(index: number): string {
   return COLORS[index % COLORS.length];
 }
 
+const activeAiGenerations = new Set<string>();
+
 export const setupCollabSocket = (io: Server) => {
   const collabNamespace = io.of("/collab");
 
@@ -127,6 +129,13 @@ export const setupCollabSocket = (io: Server) => {
     // User adds text to story
     socket.on("collab:add_text", async ({ roomId, text }) => {
       try {
+        if (activeAiGenerations.has(roomId)) {
+          socket.emit("collab:error", {
+            message: "AI is currently writing. Please wait until it completes.",
+          });
+          return;
+        }
+
         const userId = socket.data.userId;
         const room = await CollabRoom.findOne({ roomId });
         if (!room) return;
@@ -160,9 +169,48 @@ export const setupCollabSocket = (io: Server) => {
       }
     });
 
+    // Yjs document updates
+socket.on("collab:yjs-update", ({ roomId, update }) => {
+  const room = rooms.get(roomId);
+
+  if (!room) {
+    socket.emit("collab:error", {
+      message: "Room not found",
+    });
+    return;
+  }
+
+  socket.to(roomId).emit("collab:yjs-update", {
+    update,
+  });
+});
+
+// Awareness / cursor updates
+socket.on("collab:awareness", ({ roomId, awareness }) => {
+  const room = rooms.get(roomId);
+
+  if (!room) {
+    socket.emit("collab:error", {
+      message: "Room not found",
+    });
+    return;
+  }
+
+  socket.to(roomId).emit("collab:awareness", {
+    awareness,
+  });
+});
+
     // AI continues the story
     socket.on("collab:ai_continue", async ({ roomId }) => {
       try {
+        if (activeAiGenerations.has(roomId)) {
+          socket.emit("collab:error", {
+            message: "AI is already generating a continuation for this room.",
+          });
+          return;
+        }
+
         const room = await CollabRoom.findOne({ roomId });
         if (!room) return;
 
@@ -186,6 +234,8 @@ export const setupCollabSocket = (io: Server) => {
           return;
         }
 
+        activeAiGenerations.add(roomId);
+
         try {
           await reserveUserQuota(user.email);
         } catch (error: any) {
@@ -194,6 +244,7 @@ export const setupCollabSocket = (io: Server) => {
               ? error.message
               : "Monthly request limit exceeded!";
           socket.emit("collab:error", { message: errorMsg });
+          activeAiGenerations.delete(roomId);
           return;
         }
 
@@ -249,6 +300,7 @@ export const setupCollabSocket = (io: Server) => {
             message: "AI continuation failed. Please try again.",
           });
         } finally {
+          activeAiGenerations.delete(roomId);
           collabNamespace.to(roomId).emit("collab:user_stop_typing", {
             userId: "ai",
           });
